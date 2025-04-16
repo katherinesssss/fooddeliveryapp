@@ -1,34 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:fooddeliveryapp/components/my_button.dart';
-import 'package:fooddeliveryapp/components/my_textfield.dart';
 
-import 'home_page.dart';
+import '../components/my_button.dart';
+import '../components/my_textfield.dart';
 
-class LoginPage extends StatefulWidget{
+
+class RegisterPage extends StatefulWidget {
   final void Function()? onTap;
-
-  const LoginPage({super.key,required this.onTap});
+  const RegisterPage({
+    super.key,
+    required this.onTap
+  });
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<RegisterPage> createState() => _RegisterPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _RegisterPageState extends State<RegisterPage> {
   //text editing controllers
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordlController = TextEditingController();
-
-  // login method
-  void login(){
-    /*
-    fill out authentication here...
-    
-     */
-    
-    //navigate to home page
-    Navigator.push(
-      context, MaterialPageRoute(builder: (context)=>const HomePage(),),);
-  }
+  final TextEditingController confirmPasswordlController = TextEditingController();
   @override
   Widget build(BuildContext context){
     return Scaffold(
@@ -38,26 +29,26 @@ class _LoginPageState extends State<LoginPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             //logo
-          Icon(
-            Icons.lock_open_rounded,
-            size: 72,
-            color: Theme.of(context).colorScheme.inversePrimary,
-          ),
-            const SizedBox(height: 25,),
-            //message, app slogan
-          Text(
-            "Food Delivery App",
-            style: TextStyle(
-              fontSize: 16,
+            Icon(
+              Icons.lock_open_rounded,
+              size: 72,
               color: Theme.of(context).colorScheme.inversePrimary,
             ),
-          ),
+            const SizedBox(height: 25,),
+            //message, app slogan
+            Text(
+              "Let's create an account for you",
+              style: TextStyle(
+                fontSize: 16,
+                color: Theme.of(context).colorScheme.inversePrimary,
+              ),
+            ),
             const SizedBox(height: 25,),
             //email textfield
             MyTextfield(
-                controller: emailController,
-                hintText: "Email",
-                obscureText: false,
+              controller: emailController,
+              hintText: "Email",
+              obscureText: false,
             ),
             const SizedBox(height: 25,),
             //password textfield
@@ -67,27 +58,34 @@ class _LoginPageState extends State<LoginPage> {
               obscureText: true,
             ),
             const SizedBox(height: 25,),
-            //sign in button
-            MyButton(
-              text: "Sign In",
-              onTap: login,
-              ),
+            //confirm password textfield
+            MyTextfield(
+              controller: confirmPasswordlController,
+              hintText: "Confirm password",
+              obscureText: true,
+            ),
             const SizedBox(height: 25,),
-            //not a member? register now
+            //sign up button
+            MyButton(
+              text: "Sign Up",
+              onTap: (){}
+              ,),
+            const SizedBox(height: 25,),
+            //already have an account? Login here
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  "Not a member?",
+                  "already have an account?",
                   style: TextStyle(
-                    color: Theme.of(context).colorScheme.inversePrimary
+                      color: Theme.of(context).colorScheme.inversePrimary
                   ),
                 ),
                 const SizedBox(height: 25,),
                 GestureDetector(
                   onTap: widget.onTap,
                   child: Text(
-                    "Register now!",
+                    "Login now!",
                     style: TextStyle(
                       color: Theme.of(context).colorScheme.inversePrimary,
                       fontWeight: FontWeight.bold,
@@ -96,7 +94,7 @@ class _LoginPageState extends State<LoginPage> {
                 )
 
 
-            ],)
+              ],)
           ],
         ),
       ),

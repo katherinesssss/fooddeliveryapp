@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'pages/login_page.dart';
+import 'package:fooddeliveryapp/auth/login_or_register.dart';
+import 'package:fooddeliveryapp/pages/home_page.dart';
 import 'package:fooddeliveryapp/themes/theme_provider.dart';
 import 'package:provider/provider.dart';
-import 'pages/login_page.dart';
+
 
 void main() {
   runApp(
@@ -20,9 +21,7 @@ class MyApp extends StatelessWidget{
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: LoginPage(
-        onTap: (){},
-      ),
+      home: HomePage(),
       theme: Provider.of<ThemeProvider>(context).themeData,
     );
   }
