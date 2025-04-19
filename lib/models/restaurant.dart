@@ -1,6 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:fooddeliveryapp/models/food.dart';
 
-class Restaurant {
+class Restaurant extends ChangeNotifier{
 
   //list of food menu
   final List<Food> _menu = [
@@ -20,7 +21,7 @@ class Restaurant {
     Food(
       name: "Classic Cheeseburger",
       description: "A juicy beef patty with melted cheddar, lettuce,tomato, and a hint of onion and pickle.",
-      imagePath:"lib/images/burgers/cheese_burger.jpg",
+      imagePath:"lib/images/food/burgers/burger2.png",
       price:0.99,
       category:FoodCategory.burgers,
       availableAddons:[
@@ -32,7 +33,7 @@ class Restaurant {
     Food(
       name: "Classic Cheeseburger",
       description: "A juicy beef patty with melted cheddar, lettuce,tomato, and a hint of onion and pickle.",
-      imagePath:"lib/images/burgers/cheese_burger.jpg",
+      imagePath:"lib/images/burgers/burger3.png",
       price:0.99,
       category:FoodCategory.burgers,
       availableAddons:[
@@ -44,7 +45,7 @@ class Restaurant {
     Food(
       name: "Classic Cheeseburger",
       description: "A juicy beef patty with melted cheddar, lettuce,tomato, and a hint of onion and pickle.",
-      imagePath:"lib/images/burgers/cheese_burger.jpg",
+      imagePath:"lib/images/burgers/burger4.png",
       price:0.99,
       category:FoodCategory.burgers,
       availableAddons:[
@@ -56,7 +57,7 @@ class Restaurant {
     Food(
       name: "Classic Cheeseburger",
       description: "A juicy beef patty with melted cheddar, lettuce,tomato, and a hint of onion and pickle.",
-      imagePath:"lib/images/burgers/cheese_burger.jpg",
+      imagePath:"lib/images/burgers/burger5.png",
       price:0.99,
       category:FoodCategory.burgers,
       availableAddons:[

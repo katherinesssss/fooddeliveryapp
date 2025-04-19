@@ -2,9 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:fooddeliveryapp/components/my_current_location.dart';
 import 'package:fooddeliveryapp/components/my_description_box.dart';
 import 'package:fooddeliveryapp/components/my_drawer.dart';
+import 'package:fooddeliveryapp/components/my_food_tile.dart';
 import 'package:fooddeliveryapp/components/my_sliver_app_bar.dart';
 import 'package:fooddeliveryapp/components/my_tab_bar.dart';
 import 'package:fooddeliveryapp/models/food.dart';
+import 'package:provider/provider.dart';
+
+import '../models/restaurant.dart';
+import 'food_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -29,6 +34,36 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
     _tabController.dispose();
     super.dispose();
   }
+  // sort out and return a list of food items that belong to a specific category
+  List<Food> _filterMenuByCategory(FoodCategory category,List<Food> fulMenu){
+    return fulMenu.where((food)=>food.category==category).toList();
+  }
+  //return list of foods in given category
+  List<Widget> getFoofInThisCategory(List<Food> fulMenu){
+    return FoodCategory.values.map((category){
+
+      //get category menu
+      List<Food> categoryMenu = _filterMenuByCategory(category, fulMenu);
+
+      return ListView.builder(
+          itemCount: categoryMenu.length,
+        physics: const NeverScrollableScrollPhysics(),
+        padding: EdgeInsets.zero,
+        itemBuilder: (context,index) {
+            //get individual food
+          final food=categoryMenu[index];
+
+          //return food tile UI
+          return FoodTile(
+              food: food,
+              onTap: ()=>Navigator.push(context,MaterialPageRoute(builder: (context)=>FoodPage(food: food),
+              ),
+              ),
+          );
+        },
+      );
+    }).toList();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,23 +87,11 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                 ],
                 )),
           ],
-        body: TabBarView(
-          controller: _tabController,
-          children: [
-            ListView.builder(itemBuilder: (context,index)=>Text("first tab items"),
-            itemCount: 5,),
-            ListView.builder(itemBuilder: (context,index)=>Text("second tab items"),
-              itemCount: 5,),
-            ListView.builder(itemBuilder: (context,index)=>Text("third tab items"),
-              itemCount: 5,),
-            ListView.builder(itemBuilder: (context,index)=>Text("third tab items"),
-              itemCount: 5,),
-            ListView.builder(itemBuilder: (context,index)=>Text("third tab items"),
-              itemCount: 5,),
-            Text("flutter"),
-            Text("code"),
-
-          ],
+        body: Consumer<Restaurant>(
+          builder: (context,restaurant,child)=>TabBarView(
+            controller: _tabController,
+            children: getFoofInThisCategory(restaurant.menu),
+          ),
         ),
       ),
     );
