@@ -85,7 +85,8 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                     //description box
                     const MyDescriptionBox()
                 ],
-                )),
+                ),
+            ),
           ],
         body: Consumer<Restaurant>(
           builder: (context,restaurant,child)=>TabBarView(
