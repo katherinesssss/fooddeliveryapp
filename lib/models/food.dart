@@ -31,4 +31,14 @@ class Addon{
     required this.price,
     required this.name,
 });
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    return other is Addon &&
+        other.name == name &&
+        other.price == price;
+  }
+
+  @override
+  int get hashCode => name.hashCode ^ price.hashCode;
 }

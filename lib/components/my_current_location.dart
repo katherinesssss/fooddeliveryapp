@@ -41,7 +41,7 @@ class MyCurrentLocation extends StatelessWidget {
             child: Row(
               children: [
                 //address
-                Text("6901 Hollywood Blv",style: TextStyle(color: Theme.of(context).colorScheme.inversePrimary,
+                Text("25002 Ufa Russia",style: TextStyle(color: Theme.of(context).colorScheme.inversePrimary,
                 fontWeight: FontWeight.bold
                 ),
                 ),

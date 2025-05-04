@@ -36,8 +36,26 @@ class QuantitySelector extends StatelessWidget {
             ),
           ),
           //quantity count
-
+          Padding(
+              padding: EdgeInsets.symmetric(horizontal: 8),
+            child: SizedBox(
+              width: 20,
+              child: Center(
+                child: Text(
+                  quantity.toString()
+                ),
+              ),
+            ),
+          ),
           //increase button
+          GestureDetector(
+            onTap: onDecrement,
+            child: Icon(
+              Icons.add,
+              size: 20,
+              color: Theme.of(context).colorScheme.primary,
+            ),
+          ),
         ],
       ),
     );

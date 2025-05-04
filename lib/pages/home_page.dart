@@ -39,7 +39,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
     return fulMenu.where((food)=>food.category==category).toList();
   }
   //return list of foods in given category
-  List<Widget> getFoofInThisCategory(List<Food> fulMenu){
+  List<Widget> getFoodInThisCategory(List<Food> fulMenu){
     return FoodCategory.values.map((category){
 
       //get category menu
@@ -91,7 +91,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
         body: Consumer<Restaurant>(
           builder: (context,restaurant,child)=>TabBarView(
             controller: _tabController,
-            children: getFoofInThisCategory(restaurant.menu),
+            children: getFoodInThisCategory(restaurant.menu),
           ),
         ),
       ),

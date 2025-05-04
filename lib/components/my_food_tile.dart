@@ -28,7 +28,7 @@ class FoodTile extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(food.name),
-                        Text('\$'+food.price.toString(),
+                        Text('\$${food.price}',
                           style: TextStyle(
                             color: Theme.of(context).colorScheme.primary,
                           ),
@@ -44,10 +44,15 @@ class FoodTile extends StatelessWidget {
                 ),
             const SizedBox(width: 15,),
                 //
-            ClipRRect(
-              borderRadius:BorderRadius.circular(8),
-              child:  Image.asset(food.imagePath, height: 120),
-                ),
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(20.0),
+                    child: Image.asset(
+                      food.imagePath,
+                      height: 80,
+                      width: 80,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
               ],
             ),
           ),

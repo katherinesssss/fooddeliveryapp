@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-
 import 'food.dart';
 
 class CartItem{
@@ -9,9 +7,9 @@ class CartItem{
 
   CartItem({
     required this.food,
-    this.quantity =1,
     required this.selectedAddons,
-});
+    this.quantity = 1,
+  });
   double get totalPrice{
     double addonsPrice =
     selectedAddons.fold(0,(sum,addon)=>sum+addon.price);
