@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-class MyButton extends StatelessWidget {
-  final Function()? onTap;
-  final String text;
+class MyButton extends StatelessWidget { //кнопка- неизменяемый виджет
+  final Function()? onTap; //переход куда-то с помощью одиночного касания
+  final String text; //текст на кнопке
   const MyButton({
     super.key,
     required this.text,
