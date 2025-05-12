@@ -13,11 +13,11 @@ class MySliverAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SliverAppBar(
-      expandedHeight: 340,
-      collapsedHeight: 120,
-      floating: false,
-      pinned: true,
-      actions: [
+      expandedHeight: 340, // Макс. высота при раскрытии
+      collapsedHeight: 120, // Миним. высота при скролле
+      floating: false, // Не "всплывает" при скролле вверх
+      pinned: true, // Остаётся видимым при скролле
+      actions: [ //корзина и переход в нее
         //cart button
         IconButton(
           onPressed: (){
@@ -33,7 +33,7 @@ class MySliverAppBar extends StatelessWidget {
       ],
       backgroundColor: Theme.of(context).colorScheme.surface,
       foregroundColor: Theme.of(context).colorScheme.inversePrimary,
-      title: const Text("Sunset Dinner"),
+      title: Center(child: const Text("Yammy food")),
       flexibleSpace: FlexibleSpaceBar(
         background: Padding(
           padding: const EdgeInsets.only(bottom: 50.0),

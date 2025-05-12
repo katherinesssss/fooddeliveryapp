@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fooddeliveryapp/components/my_button.dart';
 import 'package:provider/provider.dart';
-
+//страница с картинкой, выбором добавок и добавлением в корзину
 import '../models/food.dart';
 import '../models/restaurant.dart';
 
@@ -25,20 +25,23 @@ class FoodPage extends StatefulWidget {
 
 class _FoodPageState extends State<FoodPage> {
 
-  //method to add to cart
-  void addToCart(Food food,Map<Addon,bool> selectedAddons){
-    //close the current food page to go back to menu
+  void addToCart(Food food, Map<Addon, bool> selectedAddons) {
+    // Форматируем выбранные дополнения
+    final currentlySelectedAddons = selectedAddons.entries
+        .where((entry) => entry.value == true)
+        .map((entry) => entry.key)
+        .toList();
+
+    // Добавляем в корзину
+    context.read<Restaurant>().addToCart(food, currentlySelectedAddons);
+
+    // Закрываем страницу ПОСЛЕ успешного добавления
     Navigator.pop(context);
 
-    //format the selected addons
-    List<Addon> currentlySelectedAddons =[];
-    for (Addon addon in widget.food.availableAddons) {
-      if(widget.selectedAddons[addon] == true){
-        currentlySelectedAddons.add(addon);
-      }
-    }
-    //add to cart
-    context.read<Restaurant>().addToCart(food, currentlySelectedAddons);
+    // Опционально: показываем уведомление о добавлении
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('${food.name} added in cart')),
+    );
   }
   @override
   Widget build(BuildContext context) {
@@ -50,9 +53,16 @@ class _FoodPageState extends State<FoodPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              //food image
-              Image.asset(widget.food.imagePath),
-
+              Container(
+                decoration: BoxDecoration(
+                  border: Border.all(color: Theme.of(context).colorScheme.secondary),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                padding: const EdgeInsets.all(25),
+                margin: const EdgeInsets.only(left: 25,right: 25,bottom: 25),
+                child:Expanded(
+                    child: Image.asset(widget.food.imagePath)),
+              ),
               Padding(
                 padding: const EdgeInsets.all(25.0),
                 child: Column(crossAxisAlignment: CrossAxisAlignment.start,
@@ -137,7 +147,7 @@ class _FoodPageState extends State<FoodPage> {
 
               //button->add to cart
               MyButton(
-                onTap:()=>addToCart(widget.food,widget.selectedAddons),
+                 onTap:()=>addToCart(widget.food,widget.selectedAddons),
                 text: "Add to cart",
               ),
 
@@ -146,25 +156,6 @@ class _FoodPageState extends State<FoodPage> {
           ),
         ),
       ),
-
-      //back button
-      // SafeArea(
-      // child: Opacity(
-      //   opacity: 0.6,
-      //   child: Container(
-      //     margin: const EdgeInsets.only(left: 25),
-      //     decoration:
-      //       BoxDecoration(color: Theme.of(context).colorScheme.secondary,
-      //         shape: BoxShape.circle,
-      //       ),
-      //     child: IconButton(
-      //         icon: const Icon(Icons.arrow_back_ios_rounded),
-      //         onPressed: ()=>Navigator.pop(context),
-      //     ),
-      //   ),
-      // ),
-      //
-      // )
     ],
 
     );

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-
+//вместо того чтобы каждый раз писать ListTile с одинаковыми стилями,
+// мы просто используем MyDrawerTile с нужными параметрами.
 class MyDrawerTile extends StatelessWidget {
 
   final String text;
@@ -21,6 +22,7 @@ class MyDrawerTile extends StatelessWidget {
           .inversePrimary),),
 
         leading:Icon(icon,color: Theme.of(context).colorScheme.inversePrimary,
+          //leading - свойство ListTile для отображения иконки перед текстом.
       ),
         onTap: onTap,
       ),

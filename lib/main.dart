@@ -1,11 +1,17 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:fooddeliveryapp/auth/login_or_register.dart';
+import 'package:fooddeliveryapp/firebase_options.dart';
+import 'package:fooddeliveryapp/pages/home_page.dart';
+import 'package:fooddeliveryapp/pages/login_page.dart';
+import 'auth/auth_gate.dart';
 import 'themes/theme_provider.dart';
 import 'package:provider/provider.dart';
 import 'models/restaurant.dart';
-import 'pages/home_page.dart';
 
-void main() {
+void main() async{
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(const MyApp());
 }
 
@@ -25,7 +31,7 @@ class MyApp extends StatelessWidget {
         builder: (context, themeProvider, child) {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
-            home: const HomePage(),
+            home: const AuthGate(),
             theme: themeProvider.themeData,
           );
         },

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+//увеличиваем и уменьшаем количество товара в корзине
 import '../models/food.dart';
 
 class QuantitySelector extends StatelessWidget {
@@ -49,7 +49,7 @@ class QuantitySelector extends StatelessWidget {
           ),
           //increase button
           GestureDetector(
-            onTap: onDecrement,
+            onTap: onIncrement,
             child: Icon(
               Icons.add,
               size: 20,

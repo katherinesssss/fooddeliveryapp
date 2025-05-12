@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+//просто главная страница с разделами и товарами, регулируем размер картинок
 import '../models/food.dart';
 
 class FoodTile extends StatelessWidget {

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+//просто плашка сверху
 class MyDescriptionBox extends StatelessWidget {
   const MyDescriptionBox({super.key});
 
@@ -7,10 +7,10 @@ class MyDescriptionBox extends StatelessWidget {
   Widget build(BuildContext context) {
     //textstyle
     var myPrimaryTextStyle = TextStyle(
-      color: Theme.of(context).colorScheme.inversePrimary,
+      color: Theme.of(context).colorScheme.inverseSurface,
     );
     var mySecondaryTextStyle = TextStyle(
-        color: Theme.of(context).colorScheme.secondary,
+        color: Theme.of(context).colorScheme.inversePrimary,
     );
     return Container(
       decoration: BoxDecoration(

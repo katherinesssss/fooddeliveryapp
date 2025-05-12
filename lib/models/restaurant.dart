@@ -1,27 +1,44 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
+import 'package:flutter/services.dart' show rootBundle;
+import 'dart:convert';
 
 import 'cart_item.dart';
 import 'food.dart';
 
+class Restaurant extends ChangeNotifier {
+  final List<CartItem> _cart = [];
 
-
-class Restaurant extends ChangeNotifier{
-  //list of food menu
+  // Restaurant() {
+  //   _loadMenuFromJson();
+  // }
+  //
+  // Future<void> _loadMenuFromJson() async {
+  //   try {
+  //     final jsonString = await rootBundle.loadString('assets/data/menu.json');
+  //     final jsonList = jsonDecode(jsonString) as List;
+  //
+  //     _menu = jsonList.map((json) => Food.fromJson(json)).toList();
+  //     notifyListeners();
+  //   } catch (e) {
+  //     debugPrint('Error loading menu: $e');
+  //     // Можно добавить fallback-меню или обработку ошибки
+  //   }
+  // }
   final List<Food> _menu = [
     //burgers
     Food(
       name: "Classic Cheeseburger",
       description: "A juicy beef patty with melted cheddar, lettuce,tomato, and a hint of onion and pickle.",
       imagePath:"lib/images/food/burgers/Burger.png",
-    price:0.99,
-    category:FoodCategory.burgers,
-    availableAddons:[
-      Addon(name: "Extra cheese", price: 0.99),
-      Addon(name: "Bacon", price: 1.99),
-      Addon(name: "Avocado", price: 2.99),
-    ],
+      price:0.99,
+      category:FoodCategory.burgers,
+      availableAddons:[
+        Addon(name: "Extra cheese", price: 0.99),
+        Addon(name: "Bacon", price: 1.99),
+        Addon(name: "Avocado", price: 2.99),
+      ],
     ),
     Food(
       name: "Classic Chickenburger",
@@ -190,14 +207,14 @@ class Restaurant extends ChangeNotifier{
     ),
     //desserts
     Food(
-      name: "Tiramisu",
-      description: "Chocolate tiramisu.",
-      imagePath:"lib/images/food/desserts/Easy Chocolate Tiramisu Ready in 20 Minutes.jpg",
-      price:0.99,
-      category:FoodCategory.desserts,
-      availableAddons: [
-        Addon(name: "Extra powder", price: 0.99),
-      ]
+        name: "Tiramisu",
+        description: "Chocolate tiramisu.",
+        imagePath:"lib/images/food/desserts/Easy Chocolate Tiramisu Ready in 20 Minutes.jpg",
+        price:0.99,
+        category:FoodCategory.desserts,
+        availableAddons: [
+          Addon(name: "Extra powder", price: 0.99),
+        ]
     ),
     Food(
       name: "Glazed donut",
@@ -292,117 +309,83 @@ class Restaurant extends ChangeNotifier{
       ],
     ),
   ];
-  /*
-  GETTERS
-   */
-List<Food> get menu=>_menu;
-List<CartItem> get cart =>_cart;
-/*
-OPERATIONS
- */
-  //user cart
-  final List<CartItem> _cart = [];
+//user cart
+  List<Food> get menu => _menu;
+  List<CartItem> get cart => _cart;
 
-
-//add to cart
-  void addToCart(Food food,List<Addon> selectedAddons) {
-    //see if there is a cart item already with the same food and selected addons
-    CartItem? cartItem = _cart.firstWhereOrNull((item){
-    //check if the food items are the same
-      bool isSameFood = item.food ==food;
-      //check if the list of selected addons are the same
-      bool isSameAddons =
-      ListEquality().equals(item.selectedAddons, selectedAddons);
+  // Методы для работы с корзиной остаются без изменений
+  void addToCart(Food food, List<Addon> selectedAddons) {
+    CartItem? cartItem = _cart.firstWhereOrNull((item) {
+      bool isSameFood = item.food == food;
+      bool isSameAddons = ListEquality().equals(item.selectedAddons, selectedAddons);
       return isSameFood && isSameAddons;
     });
 
-    //if item already exists, increase it's quantity
-    if (cartItem!=null) {
+    if (cartItem != null) {
       cartItem.quantity++;
-    }
-
-    //otherwise, add a new cart item to the cart
-    else{
+    } else {
       _cart.add(CartItem(
-          food: food,
-          selectedAddons: selectedAddons,
-      ),
-      );
+        food: food,
+        selectedAddons: selectedAddons,
+      ));
     }
     notifyListeners();
-    //debugPrint('Товар добавлен. Всего в корзине: ${_cart.length}');
   }
 
-//remove from cart
-  void removeFromCart(CartItem cartItem){
+  void removeFromCart(CartItem cartItem) {
     int cartIndex = _cart.indexOf(cartItem);
-
-    if(cartIndex!=-1){
-      if(_cart[cartIndex].quantity>1){
+    if (cartIndex != -1) {
+      if (_cart[cartIndex].quantity > 1) {
         _cart[cartIndex].quantity--;
-      } else{
+      } else {
         _cart.removeAt(cartIndex);
       }
-
     }
     notifyListeners();
   }
 
-//get total price of cart
-double getTotalPrice(){
+  double getTotalPrice() {
     double total = 0.0;
-
-    for(CartItem cartItem in _cart){
+    for (CartItem cartItem in _cart) {
       double itemTotal = cartItem.food.price;
-
       for (Addon addon in cartItem.selectedAddons) {
-        itemTotal+=addon.price;
+        itemTotal += addon.price;
       }
-      total +=itemTotal*cartItem.quantity;
+      total += itemTotal * cartItem.quantity;
     }
     return total;
-}
+  }
 
-//get total number of items in cart
- int getTotalItemCount(){
+  int getTotalItemCount() {
     int totalItemCount = 0;
-
-    for(CartItem cartItem in _cart){
-      totalItemCount+= cartItem.quantity;
+    for (CartItem cartItem in _cart) {
+      totalItemCount += cartItem.quantity;
     }
-
     return totalItemCount;
- }
+  }
 
-// clear cart
-void clearCart(){
+  void clearCart() {
     _cart.clear();
     notifyListeners();
-}
-/*
-HELPERS
-  */
+  }
 
-//generate a receipt
-  String displayCartReceipt(){
+  String displayCartReceipt() {
     final receipt = StringBuffer();
     receipt.writeln("Here's your receipt.");
     receipt.writeln();
-//format the date to include up to seconds only
-String formattedDate =
-DateFormat('yyyy-MM-dd HH:mm:ss').format(DateTime.now());
-
-receipt.writeln(formattedDate);
+    String formattedDate = DateFormat('yyyy-MM-dd HH:mm:ss').format(DateTime.now());
+    receipt.writeln(formattedDate);
     receipt.writeln();
     receipt.writeln("----------");
-    for (final cartItem in _cart){
+
+    for (final cartItem in _cart) {
       receipt.writeln("${cartItem.quantity} x ${cartItem.food.name} - ${_formatPrice(cartItem.food.price)}");
-      if (cartItem.selectedAddons.isNotEmpty){
-        receipt
-        .writeln("    Add-ons: ${_formatAddons(cartItem.selectedAddons)}");
+      if (cartItem.selectedAddons.isNotEmpty) {
+        receipt.writeln("    Add-ons: ${_formatAddons(cartItem.selectedAddons)}");
       }
       receipt.writeln();
     }
+
     receipt.writeln("-------------");
     receipt.writeln();
     receipt.writeln("Total Items: ${getTotalItemCount()}");
@@ -410,13 +393,12 @@ receipt.writeln(formattedDate);
 
     return receipt.toString();
   }
-//format double value into money
-String _formatPrice(double price){
-  return "\$${price.toStringAsFixed(2)}";
-}
 
-//format list of addons
-String _formatAddons(List<Addon> addons){
-  return addons.map((addon)=>"${addon.name}(${_formatPrice(addon.price)})").join(",");
+  String _formatPrice(double price) {
+    return "\$${price.toStringAsFixed(2)}";
   }
- }
+
+  String _formatAddons(List<Addon> addons) {
+    return addons.map((addon) => "${addon.name}(${_formatPrice(addon.price)})").join(",");
+  }
+}

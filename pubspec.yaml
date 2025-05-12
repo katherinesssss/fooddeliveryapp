@@ -34,6 +34,9 @@ dependencies:
   collection: ^1.19.1
   flutter_credit_card: ^4.1.0
   intl: ^0.20.2
+  firebase_auth: ^5.5.3
+  firebase_core: ^3.13.0
+  cloud_firestore: ^5.6.7
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -69,6 +72,7 @@ flutter:
     - lib/images/food/salads/
     - lib/images/food/drinks/
     - lib/images/food/desserts/
+    - lib/menu/food.txt
  #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

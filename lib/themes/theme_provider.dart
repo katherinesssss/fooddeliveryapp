@@ -8,7 +8,7 @@ class ThemeProvider with ChangeNotifier{
 
   ThemeData get themeData => _themeData; //получаем извне значение переменной
 
-  bool get isDarkMode => _themeData == darkMode;
+  bool get isDarkMode => _themeData == darkMode;//просто получаем состояние
 //true-если _themedata равна темной теме, false - в противном случае
   set themeData(ThemeData themeData) { //изменяем извне значение переменной
     _themeData = themeData;
@@ -16,7 +16,7 @@ class ThemeProvider with ChangeNotifier{
     //с новой темой
   }
 
-  void toggleTheme() {
+  void toggleTheme() {//происходит изменение темы когда мы в настройках меняем режим
     if (_themeData == lightMode){
       themeData = darkMode;
     }

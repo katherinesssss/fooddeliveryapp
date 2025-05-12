@@ -1,7 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fooddeliveryapp/auth/auth_service.dart';
 
 import '../components/my_button.dart';
 import '../components/my_textfield.dart';
+import 'home_page.dart';
 
 
 class RegisterPage extends StatefulWidget {
@@ -18,8 +21,48 @@ class RegisterPage extends StatefulWidget {
 class _RegisterPageState extends State<RegisterPage> {
   //text editing controllers
   final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordlController = TextEditingController();
-  final TextEditingController confirmPasswordlController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController confirmPasswordController = TextEditingController();
+
+  //register method
+  void register() async{
+    final _authService = AuthService();
+
+    if (passwordController.text==confirmPasswordController.text){
+      try{
+        await _authService.signUpWithEmailPassword(
+          emailController.text,
+          passwordController.text,
+        );
+
+      User? user = FirebaseAuth.instance.currentUser;
+      if (user != null) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const HomePage()),
+        );
+      }
+    }
+
+        catch (e){
+          showDialog(
+            context: context,
+            builder: (context)=>AlertDialog(
+              title: Text(e.toString()),
+            ),
+          );
+        }
+      }
+    else {
+      showDialog(
+        context: context,
+        builder: (context)=>AlertDialog(
+          title: Text("Passwords don't match!"),
+        ),
+      );
+    }
+    }
+
   @override
   Widget build(BuildContext context){
     return Scaffold(
@@ -53,14 +96,14 @@ class _RegisterPageState extends State<RegisterPage> {
             const SizedBox(height: 25,),
             //password textfield
             MyTextfield(
-              controller: passwordlController,
+              controller: passwordController,
               hintText: "Password",
               obscureText: true,
             ),
             const SizedBox(height: 25,),
             //confirm password textfield
             MyTextfield(
-              controller: confirmPasswordlController,
+              controller: confirmPasswordController,
               hintText: "Confirm password",
               obscureText: true,
             ),
@@ -68,8 +111,8 @@ class _RegisterPageState extends State<RegisterPage> {
             //sign up button
             MyButton(
               text: "Sign Up",
-              onTap: (){}
-              ,),
+              onTap: register,
+              ),
             const SizedBox(height: 25,),
             //already have an account? Login here
             Row(
@@ -94,7 +137,8 @@ class _RegisterPageState extends State<RegisterPage> {
                 )
 
 
-              ],)
+              ],
+            )
           ],
         ),
       ),
@@ -102,3 +146,4 @@ class _RegisterPageState extends State<RegisterPage> {
     );
   }
 }
+
