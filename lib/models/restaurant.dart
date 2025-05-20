@@ -9,23 +9,6 @@ import 'food.dart';
 
 class Restaurant extends ChangeNotifier {
   final List<CartItem> _cart = [];
-
-  // Restaurant() {
-  //   _loadMenuFromJson();
-  // }
-  //
-  // Future<void> _loadMenuFromJson() async {
-  //   try {
-  //     final jsonString = await rootBundle.loadString('assets/data/menu.json');
-  //     final jsonList = jsonDecode(jsonString) as List;
-  //
-  //     _menu = jsonList.map((json) => Food.fromJson(json)).toList();
-  //     notifyListeners();
-  //   } catch (e) {
-  //     debugPrint('Error loading menu: $e');
-  //     // Можно добавить fallback-меню или обработку ошибки
-  //   }
-  // }
   final List<Food> _menu = [
     //burgers
     Food(
@@ -56,7 +39,7 @@ class Restaurant extends ChangeNotifier {
       name: "Fishburger",
       description: "Fishburger, served with summer vegetables and remoulade.",
       imagePath:"lib/images/food/burgers/burger3.png",
-      price:0.99,
+      price:3.99,
       category:FoodCategory.burgers,
       availableAddons:[
         Addon(name: "Extra cheese", price: 0.99),
@@ -80,7 +63,7 @@ class Restaurant extends ChangeNotifier {
       name: "Double Hamburger ",
       description: "The Deluxe Double Hamburger is a classic American burger made with two beef patties, cheese, lettuce, tomato, onion, pickles, and special sauce.",
       imagePath:"lib/images/food/burgers/burger5.png",
-      price:0.99,
+      price:2.99,
       category:FoodCategory.burgers,
       availableAddons:[
         Addon(name: "Extra cheese", price: 0.99),
@@ -117,7 +100,7 @@ class Restaurant extends ChangeNotifier {
       name: "Tuna salad",
       description: "Wanna more protein and extra vegetables? This option for you.",
       imagePath:"lib/images/food/salads/Healthy Food.jpg",
-      price:0.99,
+      price:1.99,
       category:FoodCategory.salads,
       availableAddons:[
         Addon(name: "Extra carrot", price: 0.99),
@@ -165,7 +148,7 @@ class Restaurant extends ChangeNotifier {
       name: "Classic side",
       description: "Classic side that make you feel satisfied with your meal.",
       imagePath:"lib/images/food/sides/item5.jpg",
-      price:0.99,
+      price:2.99,
       category:FoodCategory.sides,
       availableAddons:[
         Addon(name: "Extra sauce", price: 0.99),
@@ -187,7 +170,7 @@ class Restaurant extends ChangeNotifier {
       name: "Poke bowl",
       description: "Poke bowl with harmonic combination of food.",
       imagePath:"lib/images/food/sides/poke bowl.jpg",
-      price:0.99,
+      price:4.99,
       category:FoodCategory.sides,
       availableAddons:[
         Addon(name: "Extra sauce", price: 0.99),
@@ -210,7 +193,7 @@ class Restaurant extends ChangeNotifier {
         name: "Tiramisu",
         description: "Chocolate tiramisu.",
         imagePath:"lib/images/food/desserts/Easy Chocolate Tiramisu Ready in 20 Minutes.jpg",
-        price:0.99,
+        price:2.99,
         category:FoodCategory.desserts,
         availableAddons: [
           Addon(name: "Extra powder", price: 0.99),
@@ -230,7 +213,7 @@ class Restaurant extends ChangeNotifier {
       name: "Classic cheesecake",
       description: "A classic cheesecake perfectly fit with cup of tea.",
       imagePath:"lib/images/food/desserts/cheesecake.jpg",
-      price:0.99,
+      price:1.99,
       category:FoodCategory.desserts,
       availableAddons:[
         Addon(name: "Extra berries", price: 0.99),
@@ -250,7 +233,7 @@ class Restaurant extends ChangeNotifier {
       name: "Pie",
       description: "A cherry pie is cooked by our secret receipt that return u in childhood.",
       imagePath:"lib/images/food/desserts/pie.jpg",
-      price:0.99,
+      price:2.99,
       category:FoodCategory.desserts,
       availableAddons:[
         Addon(name: "Extra berries", price: 0.99),
@@ -269,7 +252,7 @@ class Restaurant extends ChangeNotifier {
     ),
     Food(
       name: "Strawberry lemonade with basilic",
-      description: ".",
+      description: "A perfect drink for hot weather.",
       imagePath:"lib/images/food/drinks/fidrink.jpg",
       price:0.99,
       category:FoodCategory.drinks,

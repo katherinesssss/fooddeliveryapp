@@ -24,7 +24,6 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
 
   @override
   void initState(){
-    //TODO implement initstate
     super.initState();
     _tabController = TabController(length: FoodCategory.values.length, vsync: this);
   }

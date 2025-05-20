@@ -14,20 +14,6 @@ class Food{
     required this.category,
     required this.availableAddons,
 });
-  // factory Food.fromJson(Map<String, dynamic> json) {
-  //   return Food(
-  //     name: json['name'],
-  //     description: json['description'],
-  //     imagePath: json['imagePath'],
-  //     price: json['price'].toDouble(),
-  //     category: FoodCategory.values.firstWhere(
-  //           (e) => e.toString().split('.').last == json['category'],
-  //     ),
-  //     availableAddons: (json['availableAddons'] as List)
-  //         .map((addonJson) => Addon.fromJson(addonJson))
-  //         .toList(),
-  //   );
-  // }
 }
 //food categories
  enum FoodCategory{
@@ -55,10 +41,4 @@ class Addon{
 
   @override
   int get hashCode => name.hashCode ^ price.hashCode;
-  // factory Addon.fromJson(Map<String, dynamic> json) {
-  //   return Addon(
-  //     name: json['name'],
-  //     price: json['price'].toDouble(),
-  //   );
-  // }
 }

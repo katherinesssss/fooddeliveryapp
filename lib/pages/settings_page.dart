@@ -31,13 +31,10 @@ class SettingsPage extends StatelessWidget {
                     color: Theme.of(context).colorScheme.inversePrimary
                   ),
                 ),
-
-                //switch
                 CupertinoSwitch(
-                  value: Provider.of<ThemeProvider>(context,listen: false)
-                      .isDarkMode,
-                  onChanged: (value) =>Provider.of<ThemeProvider>(context,listen: false).toggleTheme(),
-                ),
+                  value: context.watch<ThemeProvider>().isDarkMode,
+                  onChanged: (value) => context.read<ThemeProvider>().toggleTheme(),
+                )
               ],
             ),
           ),

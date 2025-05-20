@@ -11,11 +11,13 @@ class MyCartTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<Restaurant>(
-        builder:(context,restaurant,_)=> Container(
+        builder:(context,restaurant,_)=> Container(//
+          //контейнер с товаром в корзине?
           //restaurant - экземпляр вашего Restaurant (данные, которые предоставляет провайдер)
           //child - неиспользуемый в этом случае параметр (может использоваться для оптимизации)
           //При любом изменении в Restaurant (например, при вызове addToCart/removeFromCart)
           // Весь Container и его дочерние виджеты будут перестроены
+          //child? вроде как лишний элемент
           //При изменении количества товара (кнопки +/-)
           // При изменении состава добавок
           // При любом другом изменении в Restaurant, которое уведомляет слушателей
@@ -41,7 +43,11 @@ class MyCartTile extends StatelessWidget {
                         fit: BoxFit.cover,//чтобы картинка точь-в-точь подошла по параметрам
                       ),
                       ),
+
+
+
                     const SizedBox(width:30 ,),
+
                     //name and price
                     Expanded( //поскольку не все название помещалось
                       child: Column(
